@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff06d6ea8356d7458a2571bbda35f83, type: 3}
+  m_Name: AhabLeg
+  m_EditorClassIdentifier: 
+  itemName: Captain Ahab Leg
+  icon: {fileID: -4660277293502403695, guid: 94e3edbbe3e91b64587f86faefc47238, type: 3}
+  description: Ignorance is the parent of Fear
+  itemType: 1
+  side: 0
+  isTentacle: 0
+  isStretchy: 0
+  maxStretchLength: 2
+  damage: 10
+  swingSpeed: 5
+  maxSwingSpeed: 30
+  length: 1
+  speed: 1

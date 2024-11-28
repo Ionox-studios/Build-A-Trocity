@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff06d6ea8356d7458a2571bbda35f83, type: 3}
+  m_Name: Left_Leg_Gazelle
+  m_EditorClassIdentifier: 
+  itemName: Gazelle
+  icon: {fileID: 7632419060059511523, guid: 8bdbf6bd7a6b91c4c864a272d2ce2d8b, type: 3}
+  description: '"Manners maketh man... as they say."'
+  itemType: 1
+  side: 0
+  isTentacle: 1
+  isStretchy: 1
+  maxStretchLength: 1
+  damage: 0
+  swingSpeed: 0
+  maxSwingSpeed: 30
+  length: 4
+  speed: 3

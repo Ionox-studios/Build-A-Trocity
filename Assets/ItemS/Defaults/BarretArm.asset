@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff06d6ea8356d7458a2571bbda35f83, type: 3}
+  m_Name: BarretArm
+  m_EditorClassIdentifier: 
+  itemName: Barret Arm
+  icon: {fileID: 5598278377567373905, guid: 3ca2397bbb24a2b4fb67f7553a9285f9, type: 3}
+  description: '@#*&!'
+  itemType: 0
+  side: 0
+  isTentacle: 0
+  isStretchy: 0
+  maxStretchLength: 2
+  damage: 10
+  swingSpeed: 5
+  maxSwingSpeed: 30
+  length: 1
+  speed: 1

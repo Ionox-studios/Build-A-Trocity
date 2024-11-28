@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff06d6ea8356d7458a2571bbda35f83, type: 3}
+  m_Name: Head_Jiangshi
+  m_EditorClassIdentifier: 
+  itemName: Jiangshi
+  icon: {fileID: -1676004180921196836, guid: 3b42fe2230800cc4aa0a48c9c9dedb28, type: 3}
+  description: '"Where we''re going, you won''t need eyes to see."'
+  itemType: 2
+  side: 0
+  isTentacle: 0
+  isStretchy: 0
+  maxStretchLength: 0
+  damage: 0
+  swingSpeed: 0
+  maxSwingSpeed: 30
+  length: 0
+  speed: 0

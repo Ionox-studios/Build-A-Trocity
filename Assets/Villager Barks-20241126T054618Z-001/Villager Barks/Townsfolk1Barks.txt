@@ -1,0 +1,9 @@
+Active
+
+"OI! Get back here freak!"
+
+"No sense in running!"
+
+Idle
+
+"Everything should be fine... Stay calm."
