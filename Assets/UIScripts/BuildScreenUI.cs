@@ -1,19 +1,36 @@
+// BuildScreenUI.cs
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; // If you're using TextMesh Pro
 using System.Collections.Generic;
-
 
 public class BuildScreenUI : MonoBehaviour
 {
-    [SerializeField] private Text dialogueText;
+    [Header("UI References")]
+    [SerializeField] private TextMeshProUGUI dialogueText; // Use TextMeshProUGUI if using TextMesh Pro
     [SerializeField] private Image frankensteinSilhouette;
     [SerializeField] private GameObject buildArea;
     [SerializeField] private Button completeButton;
-    
+
+    // Reference to BuildTransfer
+    [SerializeField] private BuildTransfer buildTransfer;
+
     private void Start()
     {
-        BuildManager.Instance.OnMonsterCompleted += OnMonsterCompleted;
+        // Subscribe to the OnPartChanged event
+        BuildManager.Instance.OnPartChanged += OnPartChanged;
         completeButton.onClick.AddListener(CompleteMonster);
+        completeButton.interactable = true;  // Ensure the button is always interactable
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe from events to prevent memory leaks
+        if (BuildManager.Instance != null)
+        {
+            BuildManager.Instance.OnPartChanged -= OnPartChanged;
+        }
+        completeButton.onClick.RemoveListener(CompleteMonster);
     }
 
     public void ShowDialogue(string text)
@@ -21,15 +38,22 @@ public class BuildScreenUI : MonoBehaviour
         dialogueText.text = text;
     }
 
-    private void OnMonsterCompleted(Dictionary<ItemSO.ItemType, ItemSO> monster)
+    private void OnPartChanged()
     {
-        completeButton.interactable = true;
-        ShowDialogue("It's alive! IT'S ALIVE!");
+        if (BuildManager.Instance.AreAllSpotsFilled())
+        {
+            ShowDialogue("Your creation is complete! Ready to unleash it upon the world?");
+        }
+        else
+        {
+            ShowDialogue("If you stop now I'll have to use your parts. ");  // Or any default message you'd like
+        }
     }
 
     private void CompleteMonster()
     {
-        // Transition to gameplay with assembled monster
-        // SceneManager.LoadScene("Gameplay"); Tho make it the game maangaere
+        // Collect parts from BuildSpots and start gameplay
+        buildTransfer.CollectPartsFromBuildSpots();
+        buildTransfer.StartGameplay();
     }
 }

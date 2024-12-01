@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Right_Leg_Mop
   m_EditorClassIdentifier: 
   itemName: Mop
-  icon: {fileID: 8290327725577546276, guid: f68c5c65afb761b4e8535e788dda9920, type: 3}
+  icon: {fileID: 8290327725577546276, guid: 0d4582502d0f9b24b8f41cf8224ec341, type: 3}
   description: '"Curses, Igor. ...Bah, close enough..."'
   itemType: 1
   side: 1
@@ -23,5 +23,8 @@ MonoBehaviour:
   damage: 0
   swingSpeed: 0
   maxSwingSpeed: 30
-  length: 2
-  speed: 6
+  length: 3
+  speed: 1
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10

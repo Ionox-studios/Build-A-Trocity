@@ -24,7 +24,7 @@ public class ItemSO : ScriptableObject
 
     [Header("Limb Properties")]
     [SerializeField]
-    public BodySide side;  // This will show up as a dropdown in the inspector
+    public BodySide side;
 
     [Header("Arm Properties")]
     public bool isTentacle;
@@ -37,4 +37,34 @@ public class ItemSO : ScriptableObject
     [Header("Leg Properties")]
     public float length = 1f;
     public float speed = 1f;
+
+    public enum HeadEffectType
+    {
+        None,
+        SpeedIncrease,
+        EnemyFearReduce,
+        DamageCollider,
+        LaserShoot,
+        GhostArms,
+         Vampire  // Add this new type
+    }
+
+    public HeadEffectType headEffectType;
+
+    // Additional properties for specific effects
+    public GameObject laserPrefab; // For LaserShoot effect
+    public int damageAmount = 10;  // For DamageCollider and LaserShoot
+
+    [Header("Sound Effects")]
+    public AudioClip useSound;          // Played when item is used/activated
+
+    [Header("Torso Properties")]
+public float torsoSpeed = 1f;
+public int torsoHealth = 4;
+[Header("Gun Properties")]
+public bool isGun = false;
+public GameObject bulletPrefab;
+public float bulletSpeed = 10f;
+public float fireRate = 0.5f;
+
 }

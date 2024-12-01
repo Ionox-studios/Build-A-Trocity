@@ -9,7 +9,7 @@ public class BuildInventoryManager : MonoBehaviour
     [SerializeField] private RectTransform inventoryContent;
     [SerializeField] private RectTransform inventoryPanel;
     [SerializeField] private GameObject inventoryItemPrefab;
-    [SerializeField] private List<ItemSO> availableParts;
+    [SerializeField] public List<ItemSO> availableParts;
     
     [Header("Layout Settings")]
     [SerializeField] private GridLayoutGroup gridLayout;
@@ -95,6 +95,11 @@ public class BuildInventoryManager : MonoBehaviour
             {
                 itemComponent.Initialize(part);
             }
+        }
+                // After initializing inventory, check for good ending condition
+        if (BuildTransfer.Instance != null)
+        {
+            BuildTransfer.Instance.CheckInventoryCompletion();
         }
     }
     

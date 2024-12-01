@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Right_Leg_Cherry
   m_EditorClassIdentifier: 
   itemName: Cherry
-  icon: {fileID: -8327220191644263486, guid: d1acdec2d4643ec4e985e66263b2829a, type: 3}
-  description: '"It''s go-go, not cry-cry."'
+  icon: {fileID: -8327220191644263486, guid: 5111e48bfa858ef4aaf58affdcaf6c81, type: 3}
+  description: '"It''s go-go, not cry-cry." [press Space to shoot projectiles]'
   itemType: 1
   side: 1
   isTentacle: 0
@@ -23,5 +23,15 @@ MonoBehaviour:
   damage: 0
   swingSpeed: 0
   maxSwingSpeed: 30
-  length: 2
-  speed: 6
+  length: 1
+  speed: 4
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}
+  torsoSpeed: 1
+  torsoHealth: 4
+  isGun: 1
+  bulletPrefab: {fileID: 7288492638432127779, guid: a2c339a05648e9b4c8bb02e1b927f627, type: 3}
+  bulletSpeed: 10
+  fireRate: 0.5

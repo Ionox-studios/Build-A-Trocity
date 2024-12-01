@@ -10,12 +10,17 @@ public class BuildingDestruction : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Material material;
     private Explodable explodable;
-    public float fragmentLifetime = 2f; // How long fragments live
-    // Reference to explosion force prefab if needed
+    public float fragmentLifetime = 2f;
     public ExplosionForce explosionForcePrefab;
 
     public AudioClip explosionSound;
-    
+    public AudioClip hitSound;
+
+    // Flash parameters
+    public float flashDuration = 0.1f;
+    private Color originalColor;
+    private bool isFlashing = false;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -23,22 +28,38 @@ public class BuildingDestruction : MonoBehaviour
         material = spriteRenderer.material;
         material.SetFloat("_DamageLevel", 0f);
         explodable = GetComponent<Explodable>();
-
+        originalColor = spriteRenderer.color;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Monster"))
+        if (collision.collider.gameObject.CompareTag("Monster"))
         {
-            ApplyDamage(34f); // Adjust damage as needed
+            ApplyDamage(34f, true);
+        }
+        if (collision.collider.gameObject.CompareTag("MonsterInstaKill"))
+        {
+            ApplyDamage(1000f, false);
         }
     }
 
-    void ApplyDamage(float damage)
+    void ApplyDamage(float damage, bool isNormalMonster)
     {
         currentHealth -= damage;
         float damageLevel = 1f - (currentHealth / maxHealth);
         material.SetFloat("_DamageLevel", damageLevel);
+
+        if (isNormalMonster)
+        {
+            if (hitSound != null)
+            {
+                AudioManager.Instance.PlaySound(hitSound, transform.position, 0.5f);
+            }
+            if (!isFlashing)
+            {
+                StartCoroutine(FlashRed());
+            }
+        }
 
         if (currentHealth <= 0)
         {
@@ -46,11 +67,19 @@ public class BuildingDestruction : MonoBehaviour
         }
     }
 
+    IEnumerator FlashRed()
+    {
+        isFlashing = true;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(flashDuration);
+        spriteRenderer.color = originalColor;
+        isFlashing = false;
+    }
+
     void DestroyBuilding()
     {
-        // First explode the building into fragments
         explodable.explode();
-               foreach (GameObject fragment in explodable.fragments)
+        foreach (GameObject fragment in explodable.fragments)
         {
             if (fragment != null)
             {
@@ -63,10 +92,8 @@ public class BuildingDestruction : MonoBehaviour
             }
         }
         
-        // Get the explosion position (current object position)
         Vector3 explosionPos = transform.position;
 
-        // Create explosion force at the position
         if (explosionForcePrefab != null)
         {
             ExplosionForce explosion = Instantiate(explosionForcePrefab, explosionPos, Quaternion.identity);
@@ -74,8 +101,7 @@ public class BuildingDestruction : MonoBehaviour
         }
         if (explosionSound != null)
         {
-            AudioManager.Instance.PlaySound(explosionSound, transform.position,0.5f);
+            AudioManager.Instance.PlaySound(explosionSound, transform.position, 0.5f);
         }
     }
-
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Torso_Victor
   m_EditorClassIdentifier: 
   itemName: Victor von Gerdenheim
-  icon: {fileID: -2054795350586306836, guid: 5058e70823e67dd45955afdff2efd77d, type: 3}
+  icon: {fileID: -4956368958500345944, guid: 786c776a41d85774e8fb02d64a796ae9, type: 3}
   description: '"I must not be as original as I think I am..."'
   itemType: 3
   side: 0
@@ -25,3 +25,9 @@ MonoBehaviour:
   maxSwingSpeed: 30
   length: 0
   speed: 0
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}
+  torsoSpeed: 0.75
+  torsoHealth: 5

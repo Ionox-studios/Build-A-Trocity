@@ -45,11 +45,11 @@ public class HeartTimer : MonoBehaviour
             originalLightColor = globalLight.color;
             originalLightIntensity = globalLight.intensity;
         }
-        maxHealth = 4;
-        currentHealth = maxHealth;
+        //maxHealth = 0;
+        //currentHealth = maxHealth;
         currentHeartTimer = timerDuration;
-        SetupHearts();
-        StartCoroutine(StartHeartTimer());
+        //SetupHearts();
+        //StartCoroutine(StartHeartTimer());
     }
     
     private void SetupHearts()
@@ -102,6 +102,13 @@ public class HeartTimer : MonoBehaviour
         StartCoroutine(GameOverSequence());
         yield break;
     }
+    public void SetMaxHealth(int health)
+{
+    maxHealth = health;
+    currentHealth = maxHealth;
+    SetupHearts();
+    StartCoroutine(StartHeartTimer());
+}
     
     private void RemoveHeart()
     {
@@ -110,6 +117,11 @@ public class HeartTimer : MonoBehaviour
             hearts[currentHealth - 1].StopBleeding();
             currentHealth--;
         }
+    }
+        public void RestoreTime(float timeAmount)
+    {
+        currentHeartTimer += timeAmount;
+        currentHeartTimer = Mathf.Min(currentHeartTimer, timerDuration);
     }
     private IEnumerator GameOverSequence()
     {

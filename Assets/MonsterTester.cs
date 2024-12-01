@@ -12,6 +12,13 @@ public class MonsterTester : MonoBehaviour
 
     void Start()
     {
+                // Check if BuildTransfer exists
+        if (BuildTransfer.Instance != null)
+        {
+            // Disable this component if BuildTransfer is present
+            this.enabled = false;
+            return;
+        }
         // Create test monster data
         MonsterData testMonster = ScriptableObject.CreateInstance<MonsterData>();
         testMonster.leftArm = testLeftArm;

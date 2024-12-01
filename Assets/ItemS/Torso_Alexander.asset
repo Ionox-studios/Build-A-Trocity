@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Torso_Alexander
   m_EditorClassIdentifier: 
   itemName: Alexander
-  icon: {fileID: -7232777622814007212, guid: 7f2fbccecfafd67438b241d2e1829307, type: 3}
+  icon: {fileID: 5312416053669511984, guid: 7863537e5b2f61a4c862737a9d4bb32d, type: 3}
   description: '"Demons do not cry."'
   itemType: 3
   side: 0
@@ -25,3 +25,9 @@ MonoBehaviour:
   maxSwingSpeed: 30
   length: 0
   speed: 0
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}
+  torsoSpeed: 1.5
+  torsoHealth: 4

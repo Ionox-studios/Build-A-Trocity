@@ -4,12 +4,18 @@ using Pathfinding;
 public class enemyScriptNight : MonoBehaviour
 {
     [Header("Detection Settings")]
-    public float detectionRadius = 5f;
+    public float baseDetectionRadius = 5f;
+        private float currentDetectionRadius; // New variable for actual detection radius
+
     
     [Header("Movement Settings")]
     public float fleeSpeed = 2f;
-    public float fleeTargetDistance = 10f;
+    public float basefleeTargetDistance = 10f;
+     private float currentFleeDistance; // New variable for actual flee spee
     
+
+        [Header("Game State")]
+    public bool reduceFear = false; // New variable for fear reduction
     [Header("References")]
     public AIPath aiPath;
     public AIDestinationSetter destinationSetter;
@@ -36,6 +42,15 @@ public AudioClip screamSound;
         originalZ = transform.position.z;
         startPosition = transform.position;
         startPosition.z = originalZ;
+        // Initialize current values
+        UpdateFearValues();
+    }
+
+        void UpdateFearValues()
+    {
+        // If fear is reduced, halve the detection radius and flee speed
+        currentDetectionRadius = reduceFear ? baseDetectionRadius * 0.5f : baseDetectionRadius;
+        currentFleeDistance = reduceFear ? basefleeTargetDistance * 0.5f : basefleeTargetDistance;
     }
 
     Transform CreateTempTarget(Vector3 position)
@@ -64,7 +79,7 @@ public AudioClip screamSound;
                 directionFromPlayer.x * Mathf.Sin(angle) + directionFromPlayer.y * Mathf.Cos(angle)
             );
 
-            Vector2 potentialTarget2D = myPos2D + (rotatedDirection * fleeTargetDistance);
+            Vector2 potentialTarget2D = myPos2D + (rotatedDirection * currentFleeDistance);
             Vector3 potentialTarget = new Vector3(potentialTarget2D.x, potentialTarget2D.y, originalZ);
             
             GraphNode node = AstarPath.active.GetNearest(potentialTarget).node;
@@ -76,7 +91,7 @@ public AudioClip screamSound;
         }
 
         isValidFleePoint = false;
-        Vector2 fallbackTarget = myPos2D + (directionFromPlayer * fleeTargetDistance);
+        Vector2 fallbackTarget = myPos2D + (directionFromPlayer * currentFleeDistance);
         return new Vector3(fallbackTarget.x, fallbackTarget.y, originalZ);
     }
 
@@ -99,7 +114,7 @@ public AudioClip screamSound;
         // If we're not currently fleeing, check if we need to start
         if (!isFleeing)
         {
-            if (distanceToPlayer <= detectionRadius)
+            if (distanceToPlayer <= currentDetectionRadius)
             {
                 StartFleeing();
             }
@@ -111,7 +126,7 @@ public AudioClip screamSound;
             aiPath.canMove = false;
             
             // Immediately check if we need to flee again
-            if (distanceToPlayer <= detectionRadius)
+            if (distanceToPlayer <= currentDetectionRadius)
             {
                 StartFleeing();
             }
@@ -149,7 +164,7 @@ public AudioClip screamSound;
     {
         // Draw detection radius
         Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        Gizmos.DrawWireSphere(transform.position, currentDetectionRadius);
 
         // Draw flee target if fleeing
         if (isFleeing && tempTarget != null)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Right_Leg_Goat
   m_EditorClassIdentifier: 
   itemName: Goat
-  icon: {fileID: -6939631812114384725, guid: 27ac4fe1e54a16e47b61ba8ac9687c50, type: 3}
+  icon: {fileID: -6939631812114384725, guid: 5358519a987d05d49a2d93895d43da55, type: 3}
   description: '"Probably the only fully biological limb collected thus far."'
   itemType: 1
   side: 1
@@ -24,4 +24,7 @@ MonoBehaviour:
   swingSpeed: 0
   maxSwingSpeed: 30
   length: 2
-  speed: 6
+  speed: 3
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10

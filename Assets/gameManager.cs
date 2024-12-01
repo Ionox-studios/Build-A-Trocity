@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public List<ItemSO> playerInventory = new List<ItemSO>();
     public int playerHealth;
     public float gameTime;
+
     public HashSet<string> openedChests = new HashSet<string>();
 
     private void Awake()

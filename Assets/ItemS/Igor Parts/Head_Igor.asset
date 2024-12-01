@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Head_Igor
   m_EditorClassIdentifier: 
   itemName: Igor's Head
-  icon: {fileID: 4620748696422136762, guid: fd7b27d96dc58f240b00866fbeea63a5, type: 3}
+  icon: {fileID: -2090311075157124720, guid: 79053373dce3e0d47862157b10ff6909, type: 3}
   description: Lost your head?
   itemType: 2
   side: 0
@@ -25,3 +25,6 @@ MonoBehaviour:
   maxSwingSpeed: 30
   length: 0
   speed: 0
+  headEffectType: 4
+  laserPrefab: {fileID: 1332884480019852577, guid: dde00d544443d294a8e99c6d66e72cb0, type: 3}
+  damageAmount: 10

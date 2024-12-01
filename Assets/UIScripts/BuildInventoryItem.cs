@@ -86,6 +86,8 @@ public void OnPointerEnter(PointerEventData eventData)
 {
     HoverPreviewManager.Instance.ShowPreview(item);  // Remove the position parameter
     HoverPreviewManager.Instance.ShowDescription(item);
+    HoverPreviewManager.Instance.PlayHoverSound();
+
 }
 
     public void OnPointerExit(PointerEventData eventData)

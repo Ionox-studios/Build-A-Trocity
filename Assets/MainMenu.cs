@@ -20,7 +20,10 @@ public class MainMenu : MonoBehaviour
    {
     Application.Quit();
    }
-
+   
+   public void BacktoMenu()
+   {
+        SceneManager.LoadScene("Menu");
    }
    
-
+}

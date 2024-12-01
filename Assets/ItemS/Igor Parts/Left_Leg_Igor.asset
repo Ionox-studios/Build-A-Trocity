@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Left_Leg_Igor
   m_EditorClassIdentifier: 
   itemName: Igor's Left Leg
-  icon: {fileID: -436079694958825090, guid: 916f0293ed2ea0445ae81b656edf51e4, type: 3}
+  icon: {fileID: -436079694958825090, guid: e2d096d7299ee1e46bafe8587d849d3e, type: 3}
   description: Back on your feet in no time.
   itemType: 1
   side: 0
@@ -23,5 +23,15 @@ MonoBehaviour:
   damage: 0
   swingSpeed: 0
   maxSwingSpeed: 30
-  length: 1
-  speed: 3
+  length: 5
+  speed: 5
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}
+  torsoSpeed: 1
+  torsoHealth: 4
+  isGun: 0
+  bulletPrefab: {fileID: 0}
+  bulletSpeed: 10
+  fireRate: 0.5

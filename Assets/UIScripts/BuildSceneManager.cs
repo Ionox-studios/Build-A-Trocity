@@ -2,8 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
-using System.Collections.Generic;
 
 public class BuildSceneManager : MonoBehaviour
 {
@@ -12,18 +10,17 @@ public class BuildSceneManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private Button completeButton;
     [SerializeField] private TextMeshProUGUI statsText;
-    
-    [Header("Panels")]
-    [SerializeField] private RectTransform buildAreaPanel;
-    [SerializeField] private RectTransform leftPanel;
-    [SerializeField] private RectTransform rightPanel;
-    [SerializeField] private RectTransform inventoryPanel;
+
+    // Assign BuildTransfer in the inspector
+    [SerializeField] private BuildTransfer buildTransfer;
+    public AudioSource audioSource;
+    public AudioClip completeSound;
 
     private void Start()
     {
         SetupCanvas();
-        SetupPanels();
         SetupUICallbacks();
+        UpdateStats(); // Initial update
     }
 
     private void SetupCanvas()
@@ -34,27 +31,10 @@ public class BuildSceneManager : MonoBehaviour
         scaler.matchWidthOrHeight = 1f;
     }
 
-    private void SetupPanels()
-    {
-//        SetupPanel(leftPanel, new Vector2(0, 0), new Vector2(0.3f, 1));
-//        SetupPanel(rightPanel, new Vector2(0.7f, 0), new Vector2(1, 1));
-//        SetupPanel(buildAreaPanel, new Vector2(0.3f, 0.2f), new Vector2(0.7f, 1));
-        //SetupPanel(inventoryPanel, new Vector2(0, 0), new Vector2(1, 0.2f));
-    }
-
-    private void SetupPanel(RectTransform panel, Vector2 anchorMin, Vector2 anchorMax)
-    {
-        panel.anchorMin = anchorMin;
-        panel.anchorMax = anchorMax;
-        panel.offsetMin = Vector2.zero;
-        panel.offsetMax = Vector2.zero;
-    }
-
     private void SetupUICallbacks()
     {
         completeButton.onClick.AddListener(OnCompleteButtonClicked);
-        BuildManager.Instance.OnMonsterCompleted += HandleMonsterCompleted;
-        completeButton.interactable = false;
+        BuildManager.Instance.OnPartChanged += HandlePartChanged;
     }
 
     private void OnDestroy()
@@ -62,51 +42,80 @@ public class BuildSceneManager : MonoBehaviour
         completeButton.onClick.RemoveListener(OnCompleteButtonClicked);
         if (BuildManager.Instance != null)
         {
-            BuildManager.Instance.OnMonsterCompleted -= HandleMonsterCompleted;
+            BuildManager.Instance.OnPartChanged -= HandlePartChanged;
         }
     }
 
     private void OnCompleteButtonClicked()
     {
-        if (BuildManager.Instance.ValidateMonster())
-        {
-            StartCoroutine(TransitionToGameplay());
-        }
+        audioSource.PlayOneShot(completeSound);
+        buildTransfer.CollectPartsFromBuildSpots();
+        buildTransfer.StartGameplay();
     }
 
- private void HandleMonsterCompleted(Dictionary<ItemSO.ItemType, ItemSO> monster)
-{
-    completeButton.interactable = true;
-    UpdateStats(monster);
-    BuildTransfer.Instance.currentMonster.UpdateFromDictionary(monster);
-    dialogueText.text = "Your creation is complete! Ready to unleash it upon the world?";
-}
-
-    private void UpdateStats(Dictionary<ItemSO.ItemType, ItemSO> monster)
+    private void HandlePartChanged()
     {
-        float totalSpeed = 0f;
-        float totalDamage = 0f;
+        UpdateStats();
 
-        foreach (var part in monster.Values)
+        if (BuildManager.Instance.AreAllSpotsFilled())
         {
-            switch (part.itemType)
-            {
-                case ItemSO.ItemType.Leg:
-                    totalSpeed += part.speed;
-                    break;
-                case ItemSO.ItemType.Arm:
-                    totalDamage += part.damage;
-                    break;
-            }
+            dialogueText.text = "AHAHAHAA!! Trocity is ALIVE!!!! LET'S GET OUR REVENGE.";
         }
-
-        statsText.text = $"Speed: {totalSpeed:F1}\nDamage: {totalDamage:F1}";
+        else
+        {
+            dialogueText.text = "If you stop now, I'll have to use your parts."; // Or any default message
+        }
     }
 
-private IEnumerator TransitionToGameplay()
+private void UpdateStats()
 {
-    dialogueText.text = "IT'S ALIVE! IT'S ALIVE!";
-    yield return new WaitForSeconds(2f);
-    BuildTransfer.Instance.StartGameplay();
+    float totalSpeed = 0f;
+    float totalDamage = 0f;
+    int health = 0;
+    float speedMultiplier = 1f;
+
+    // Get all items from BuildSpots
+    var leftArmItem = buildTransfer.leftArmSpot.GetCurrentItem();
+    var rightArmItem = buildTransfer.rightArmSpot.GetCurrentItem();
+    var leftLegItem = buildTransfer.leftLegSpot.GetCurrentItem();
+    var rightLegItem = buildTransfer.rightLegSpot.GetCurrentItem();
+    var headItem = buildTransfer.headSpot.GetCurrentItem();
+    var torsoItem = buildTransfer.torsoSpot.GetCurrentItem();
+
+    // Calculate base speed from legs
+    if (leftLegItem != null)
+        totalSpeed += leftLegItem.speed;
+    if (rightLegItem != null)
+        totalSpeed += rightLegItem.speed;
+
+    // Apply torso speed multiplier
+    if (torsoItem != null)
+    {
+        speedMultiplier *= torsoItem.torsoSpeed;
+        health = torsoItem.torsoHealth;
+    }
+
+    // Apply head speed boost if applicable
+    if (headItem != null && headItem.headEffectType == ItemSO.HeadEffectType.SpeedIncrease)
+    {
+        speedMultiplier *= 1.5f;
+    }
+
+    // Calculate total speed with multipliers
+    totalSpeed *= speedMultiplier;
+
+    // Calculate damage
+    if (leftArmItem != null)
+        totalDamage += leftArmItem.damage;
+    if (rightArmItem != null)
+        totalDamage += rightArmItem.damage;
+    if (leftLegItem != null)
+        totalDamage += leftLegItem.damage;
+    if (rightLegItem != null)
+        totalDamage += rightLegItem.damage;
+
+    // Update stats text with all three values
+    statsText.text = $"Speed: {totalSpeed:F1}\nDamage: {totalDamage:F1}\nHealth: {health}";
+
 }
 }

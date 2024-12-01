@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Torso_BB
   m_EditorClassIdentifier: 
   itemName: Buffalo Bill's victim
-  icon: {fileID: 4915403610606180675, guid: 8cd0750ab53670c44a6bcfa593c1a0ba, type: 3}
+  icon: {fileID: -4936031334510132738, guid: 7ee0289bd5ec919478485464636dfd2e, type: 3}
   description: '"It rubs the lotion on its skin or else it gets the hose again!"'
   itemType: 3
   side: 0

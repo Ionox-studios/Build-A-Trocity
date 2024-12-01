@@ -71,7 +71,7 @@ public AudioClip hitSound;       // The sound to play when hit
         
         if (currentHealth <= 0)
         {
-            GameOver();
+           GameOver();
         }
     }
 private IEnumerator HitEffects(Vector2 attackerPosition)

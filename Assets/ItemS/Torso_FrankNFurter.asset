@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Torso_FrankNFurter
   m_EditorClassIdentifier: 
   itemName: Frank-N-Furter
-  icon: {fileID: -8760392996391872763, guid: 0535d56427635c64ea090e7387738291, type: 3}
+  icon: {fileID: 4299175167130788304, guid: 71db9522cc8808747b387ac1f6b4d48e, type: 3}
   description: '"I see you shiver with antici...pation!"'
   itemType: 3
   side: 0
@@ -25,3 +25,9 @@ MonoBehaviour:
   maxSwingSpeed: 30
   length: 0
   speed: 0
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}
+  torsoSpeed: 1
+  torsoHealth: 3

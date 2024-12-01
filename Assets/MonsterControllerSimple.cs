@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 
 public class MonsterControllerSimple : MonoBehaviour
 {
@@ -23,9 +25,17 @@ public class MonsterControllerSimple : MonoBehaviour
     public float influenceMultiplier = 4f; // Existing variable
 
     private Rigidbody2D rb;
-        [Header("Game State")]
+    // Add these near your other public variables
+    [SerializeField] private TMP_Text shootPromptText;
+    private float promptFadeTime = 5f;
+    private float promptTimer = 0f;
+    private bool promptShown = false;
+    [Header("Game State")]
     public bool isBadEnding = false;
+    public bool reduceEnemyFear = false;
+    public bool isGreatEnding = false;
 
+    public HeartTimer heartTimer;
     [Header("Debug Info")]
     public bool showDebugInfo = true;
 
@@ -48,9 +58,10 @@ public class MonsterControllerSimple : MonoBehaviour
         {
             rightLeg.SetPhaseOffset(Mathf.PI); // Offset by 180 degrees
         }
-                if (BuildTransfer.Instance != null && BuildTransfer.Instance.currentMonster != null)
+        if (BuildTransfer.Instance != null && BuildTransfer.Instance.currentMonster != null)
         {
             ApplyMonsterConfiguration(BuildTransfer.Instance.currentMonster);
+            isGreatEnding  = BuildTransfer.Instance.isGoodEnding;
         }
 
     }
@@ -75,6 +86,20 @@ public class MonsterControllerSimple : MonoBehaviour
         {
             DebugArmStatus();
         }
+
+        if (promptShown && Time.time > promptTimer + promptFadeTime)
+        {
+            Debug.Log("Fading out prompt");
+            float alpha = 1f - ((Time.time - (promptTimer + promptFadeTime)) / 0.5f);
+            if (alpha <= 0)
+            {
+                shootPromptText.gameObject.SetActive(false);
+            }
+            else
+            {
+                shootPromptText.color = new Color(1, 1, 1, alpha);
+            }
+        }
     }
 
     void FixedUpdate()
@@ -89,7 +114,10 @@ public class MonsterControllerSimple : MonoBehaviour
         // Get leg speeds
         float leftLegSpeed = leftLeg != null ? leftLeg.GetSpeed() : 1f;
         float rightLegSpeed = rightLeg != null ? rightLeg.GetSpeed() : 1f;
-
+        float rightLegLength = rightLeg != null ? rightLeg.GetLength() : 1f;
+        float leftLegLength = leftLeg != null ? leftLeg.GetLength() : 1f;
+        Debug.Log($"Left Leg Speed: {leftLegSpeed} | Right Leg Speed: {rightLegSpeed}");
+        Debug.Log($"Left Leg Length: {leftLegLength} | Right Leg Length: {rightLegLength}");
         // Calculate x speed based on leg speeds and input direction
         float xSpeed = moveSpeed;
         if (horizontalInput > 0)
@@ -118,7 +146,7 @@ public class MonsterControllerSimple : MonoBehaviour
         // Existing code to calculate verticalInfluence
         if (leftArm.IsSwingingUp())
         {
-            float leftInfluence = armInfluence*(leftLeg != null ? leftLeg.GetLength() : 1f) ;
+            float leftInfluence = armInfluence*leftLegLength ;
             if (leftArm.IsKeyHeld())
             {
                 leftInfluence *= influenceMultiplier;
@@ -127,7 +155,7 @@ public class MonsterControllerSimple : MonoBehaviour
         }
         if (leftArm.IsSwingingDown())
         {
-            float leftInfluence = armInfluence*(rightLeg != null ? rightLeg.GetLength() : 1f);
+            float leftInfluence = armInfluence*leftLegLength;
             if (leftArm.IsKeyHeld())
             {
                 leftInfluence *= influenceMultiplier;
@@ -137,7 +165,7 @@ public class MonsterControllerSimple : MonoBehaviour
 
         if (rightArm.IsSwingingUp())
         {
-            float rightInfluence = armInfluence;
+            float rightInfluence = armInfluence*rightLegLength;
             if (rightArm.IsKeyHeld())
             {
                 rightInfluence *= influenceMultiplier;
@@ -146,7 +174,7 @@ public class MonsterControllerSimple : MonoBehaviour
         }
         if (rightArm.IsSwingingDown())
         {
-            float rightInfluence = armInfluence;
+            float rightInfluence = armInfluence*rightLegLength;
             if (rightArm.IsKeyHeld())
             {
                 rightInfluence *= influenceMultiplier;
@@ -159,7 +187,7 @@ public class MonsterControllerSimple : MonoBehaviour
 
         if (rightArm.IsSwingingForward())
         {
-            float rightInfluence = armInfluence;
+            float rightInfluence = armInfluence*rightLegLength;
             if (rightArm.IsKeyHeld())
             {
                 rightInfluence *= influenceMultiplier;
@@ -169,19 +197,20 @@ public class MonsterControllerSimple : MonoBehaviour
 
         if (leftArm.IsSwingingForward())
         {
-            float leftInfluence = armInfluence;
+            float leftInfluence = armInfluence*leftLegLength;
             if (leftArm.IsKeyHeld())
             {
                 leftInfluence *= influenceMultiplier;
             }
             horizontalInfluence -= leftInfluence;
         }
+        Debug.Log($"Vertical Influence: {verticalInfluence} | Horizontal Influence: {horizontalInfluence}");
 
         // Adjust arm influence based on average leg length
         float avgLegLength = ((leftLeg != null ? leftLeg.GetLength() : 1f) + (rightLeg != null ? rightLeg.GetLength() : 1f)) / 2f;
 
         //verticalInfluence *= avgLegLength;
-        horizontalInfluence *= avgLegLength;
+        //horizontalInfluence *= avgLegLength;
 
         // Add arm influences to movement
         movement.x += horizontalInfluence;
@@ -206,6 +235,7 @@ private void ApplyMonsterConfiguration(MonsterData monster)
     {
         monster.leftArm = DefaultMonsterParts.Instance.defaultLeftArm;
         hasMissingParts = true;
+
     }
     
     if (monster.rightArm == null && DefaultMonsterParts.Instance != null)
@@ -245,32 +275,127 @@ private void ApplyMonsterConfiguration(MonsterData monster)
     if (leftArm != null && monster.leftArm != null)
     {
         leftArm.Configure(monster.leftArm);
+        // Tag based on damage value
+        if (monster.leftArm.damage == 1)
+        {
+            leftArm.gameObject.tag = "Monster";
+            // Tag all children
+            foreach (Transform child in leftArm.transform)
+            {
+                child.gameObject.tag = "Monster";
+            }
+        }
+        else if (monster.leftArm.damage > 1)
+        {
+            leftArm.gameObject.tag = "MonsterInstaKill";
+            // Tag all children
+            foreach (Transform child in leftArm.transform)
+            {
+                child.gameObject.tag = "MonsterInstaKill";
+            }
+        }
     }
     
     if (rightArm != null && monster.rightArm != null)
     {
         rightArm.Configure(monster.rightArm);
+                // Tag based on damage value
+        if (monster.rightArm.damage == 1)
+        {
+            rightArm.gameObject.tag = "Monster";
+            // Tag all children
+            foreach (Transform child in rightArm.transform)
+            {
+                child.gameObject.tag = "Monster";
+            }
+        }
+        else if (monster.rightArm.damage == 2)
+        {
+            rightArm.gameObject.tag = "MonsterInstaKill";
+            // Tag all children
+            foreach (Transform child in rightArm.transform)
+            {
+                child.gameObject.tag = "MonsterInstaKill";
+            }
+        }
     }
     
-    if (leftLeg != null && monster.leftLeg != null)
-    {
-        leftLeg.Configure(monster.leftLeg);
-    }
-    
-    if (rightLeg != null && monster.rightLeg != null)
-    {
-        rightLeg.Configure(monster.rightLeg);
-    }
+        if (leftLeg != null && monster.leftLeg != null)
+        {
+            leftLeg.Configure(monster.leftLeg);
+            // Add damage tag handling for legs
+            if (monster.leftLeg.damage > 1)
+            {
+                leftLeg.gameObject.tag = "MonsterInstaKill";
+                foreach (Transform child in leftLeg.transform)
+                {
+                    child.gameObject.tag = "MonsterInstaKill";
+                }
+            }
+        }
+
+        if (rightLeg != null && monster.rightLeg != null)
+        {
+            rightLeg.Configure(monster.rightLeg);
+            // Add damage tag handling for legs
+            if (monster.rightLeg.damage > 1)
+            {
+                rightLeg.gameObject.tag = "MonsterInstaKill";
+                foreach (Transform child in rightLeg.transform)
+                {
+                    child.gameObject.tag = "MonsterInstaKill";
+                }
+            }
+        }
     
     if (headRenderer != null && monster.head != null)
     {
         headRenderer.sprite = monster.head.icon;
+        HeadController headController = headPoint.GetComponent<HeadController>();
+        headController.headItem = monster.head;
+        headController.Setup(); // Call Setup instead of letting Start handle it
+
     }
     
     if (torsoRenderer != null && monster.torso != null)
     {
         torsoRenderer.sprite = monster.torso.icon;
+        torsoRenderer.sprite = monster.torso.icon;
+        
+        // Apply torso speed multiplier
+        moveSpeed *= monster.torso.torsoSpeed;
+        
+        // Set health in HeartTimer
+ 
+        if (heartTimer != null)
+        {
+            heartTimer.SetMaxHealth(monster.torso.torsoHealth);
+        }
+        
     }
+            if (shootPromptText != null)
+        {
+            Debug.Log("Checking for shooters");
+            bool hasShooter = (leftArm.isShooter ==  true) || 
+                             (rightArm.isShooter == true) ||
+                             (leftLeg.isShooter == true) ||
+                             (rightLeg.isShooter== true);
+            
+            if (hasShooter && !promptShown)
+            {
+                Debug.Log("Showing shoot prompt");
+                shootPromptText.gameObject.SetActive(true);
+                shootPromptText.text = "Press space to shoot, you can fire every half a second!";
+                shootPromptText.color = new Color(1, 1, 1, 1);
+                promptShown = true;
+                promptTimer = Time.time;
+            }
+            else
+            {
+                shootPromptText.gameObject.SetActive(false);
+            }
+        }
+
 }
         public void SetupMonsterData(MonsterData monster)
     {

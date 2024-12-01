@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Head_Dullahan
   m_EditorClassIdentifier: 
   itemName: Celty
-  icon: {fileID: -544916805018353991, guid: 327e28c4ccaa57a44bd378ab01366f33, type: 3}
-  description: '"Is there anything inside this?"'
+  icon: {fileID: -9056752303108823255, guid: ff1d3e808201c1846b6b8bb2a77ba99a, type: 3}
+  description: '"Do you like flying at mach speed?" [increased movement speed]'
   itemType: 2
   side: 0
   isTentacle: 0
@@ -25,3 +25,7 @@ MonoBehaviour:
   maxSwingSpeed: 30
   length: 0
   speed: 0
+  headEffectType: 1
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 8300000, guid: 922e134017181244ca593f803a224a23, type: 3}

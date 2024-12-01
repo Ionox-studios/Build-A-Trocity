@@ -5,83 +5,53 @@ using System.Collections.Generic;
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager Instance { get; private set; }
-    
-    private Dictionary<ItemSO.ItemType, BuildSpot> buildSpots = new Dictionary<ItemSO.ItemType, BuildSpot>();
-    private Dictionary<ItemSO.ItemType, ItemSO> assembledParts = new Dictionary<ItemSO.ItemType, ItemSO>();
-    
-    public System.Action<Dictionary<ItemSO.ItemType, ItemSO>> OnMonsterCompleted;
+
+    private List<BuildSpot> buildSpots = new List<BuildSpot>();
+
+    public System.Action OnPartChanged;
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     public void RegisterBuildSpot(BuildSpot spot)
     {
-        if (!buildSpots.ContainsKey(spot.GetAcceptedType()))
+        if (!buildSpots.Contains(spot))
         {
-            buildSpots.Add(spot.GetAcceptedType(), spot);
+            buildSpots.Add(spot);
         }
+    }
+
+    public List<BuildSpot> GetAllBuildSpots()
+    {
+        return buildSpots;
     }
 
     public void PlacePart(ItemSO part, BuildSpot spot)
     {
-        if (assembledParts.ContainsKey(part.itemType))
-        {
-            assembledParts[part.itemType] = part;
-        }
-        else
-        {
-            assembledParts.Add(part.itemType, part);
-        }
-        
-        CheckCompletion();
+        // Notify that a part has changed
+        OnPartChanged?.Invoke();
     }
 
     public void RemovePart(ItemSO.ItemType type)
     {
-        if (assembledParts.ContainsKey(type))
-        {
-            assembledParts.Remove(type);
-        }
+        // Notify that a part has changed
+        OnPartChanged?.Invoke();
     }
 
-    public bool ValidateMonster()
+    public bool AreAllSpotsFilled()
     {
-        foreach (var spot in buildSpots.Values)
+        foreach (var spot in buildSpots)
         {
-            if (spot.IsRequired() && !assembledParts.ContainsKey(spot.GetAcceptedType()))
+            if (!spot.HasItem())
             {
                 return false;
             }
         }
         return true;
-    }
-
-    private void CheckCompletion()
-    {
-        if (ValidateMonster())
-        {
-            FillMissingParts();
-            OnMonsterCompleted?.Invoke(assembledParts);
-        }
-    }
-
-    private void FillMissingParts()
-    {
-        foreach (var spot in buildSpots.Values)
-        {
-            var type = spot.GetAcceptedType();
-            if (!assembledParts.ContainsKey(type) && spot.GetDefaultItem() != null)
-            {
-                assembledParts.Add(type, spot.GetDefaultItem());
-            }
-        }
-    }
-
-    public Dictionary<ItemSO.ItemType, ItemSO> GetAssembledParts()
-    {
-        return new Dictionary<ItemSO.ItemType, ItemSO>(assembledParts);
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Left_Leg_Basic
   m_EditorClassIdentifier: 
   itemName: Stolen Left Leg
-  icon: {fileID: 1163216309438538573, guid: 3664912dd35e3704e83fe2d2a0c88eb6, type: 3}
+  icon: {fileID: 1163216309438538573, guid: 810e5fb3d48b8024ea7ac96270c9f4f3, type: 3}
   description: Another step forward.
   itemType: 1
   side: 0
@@ -23,5 +23,15 @@ MonoBehaviour:
   damage: 0
   swingSpeed: 0
   maxSwingSpeed: 30
-  length: 1
-  speed: 3
+  length: 2
+  speed: 2
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}
+  torsoSpeed: 1
+  torsoHealth: 4
+  isGun: 0
+  bulletPrefab: {fileID: 7288492638432127779, guid: a2c339a05648e9b4c8bb02e1b927f627, type: 3}
+  bulletSpeed: 10
+  fireRate: 0.5

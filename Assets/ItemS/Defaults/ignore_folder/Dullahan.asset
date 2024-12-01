@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff06d6ea8356d7458a2571bbda35f83, type: 3}
+  m_Name: Dullahan
+  m_EditorClassIdentifier: 
+  itemName: Dullahan
+  icon: {fileID: -162233516739053332, guid: d598ab82c4d966e4497837cbf0b8455d, type: 3}
+  description: 
+  itemType: 2
+  isTentacle: 0
+  isStretchy: 0
+  maxStretchLength: 2
+  damage: 10
+  swingSpeed: 5
+  maxSwingSpeed: 30
+  length: 1
+  speed: 1

@@ -32,9 +32,11 @@ public AudioClip[] footstepSounds;  // Array of different footstep sounds
 public float minTimeBetweenSteps = 0.3f;  // Minimum time between footstep sounds
 public float footstepVolumeMin = 0.5f;
 public float footstepVolumeMax = 1.0f;
-
+public bool isShooter = false;
 private float lastStepTime;  // Track when we last played a step sound
 private bool wasGrounded;    // Track if we were grounded last frame
+    public Transform endPoint; // Reference to the end/tip of the arm
+
 
     void Start()
     {
@@ -58,9 +60,9 @@ private bool wasGrounded;    // Track if we were grounded last frame
                 {
                     // Convert angle to radians
                     float radAngle = swingAngle * Mathf.Deg2Rad;
-                    length = 1f;
+                    //length = 1f;
                     // Calculate offset from hip based on swing angle
-                    Vector3 offset = new Vector3(Mathf.Sin(radAngle), -Mathf.Cos(radAngle), 0) * length;
+                    Vector3 offset = new Vector3(Mathf.Sin(radAngle), -Mathf.Cos(radAngle), 0) * 1f;
 
                     // Set the leg's position
                     transform.position = hipTransform.position + offset;
@@ -85,7 +87,7 @@ private bool wasGrounded;    // Track if we were grounded last frame
                     float radAngle = swingAngle * Mathf.Deg2Rad;
 
                     // Calculate offset from hip based on base angle
-                    Vector3 offset = new Vector3(Mathf.Sin(radAngle), -Mathf.Cos(radAngle), 0) * length;
+                    Vector3 offset = new Vector3(Mathf.Sin(radAngle), -Mathf.Cos(radAngle), 0) * 1f;
 
                     // Set the leg's position
                     transform.position = hipTransform.position + offset;
@@ -129,7 +131,13 @@ private bool wasGrounded;    // Track if we were grounded last frame
             length = legConfig.length;
             speed = legConfig.speed;
             // Set any other leg-specific properties
-            length = 1f;
+            //length = 1f;
+        }
+        if (legConfig.isGun)
+        {
+            LimbShooter shooter = gameObject.AddComponent<LimbShooter>();
+            shooter.Configure(legConfig, endPoint);
+            isShooter = true;
         }
     }
     private void PlayFootstepSound()

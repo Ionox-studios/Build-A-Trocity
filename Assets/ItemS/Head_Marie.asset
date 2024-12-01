@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Head_Marie
   m_EditorClassIdentifier: 
   itemName: Marie
-  icon: {fileID: 8429468906806460848, guid: 21d8727051e990f42a823130a325f946, type: 3}
-  description: '"Ah, that''s grim."'
+  icon: {fileID: 6852992201513381775, guid: 6fae1a90c7ed2c340aff52a98899635f, type: 3}
+  description: '"This beauty is sure to turn some heads!" [reduces fleeing range]'
   itemType: 2
   side: 0
   isTentacle: 0
@@ -25,3 +25,7 @@ MonoBehaviour:
   maxSwingSpeed: 30
   length: 0
   speed: 0
+  headEffectType: 2
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 8300000, guid: 13c18bebb851f0444ac5243112eeb838, type: 3}

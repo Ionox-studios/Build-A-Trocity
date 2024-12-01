@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: Right_Arm_Basic
   m_EditorClassIdentifier: 
   itemName: Stolen Right Arm
-  icon: {fileID: -4529699076866601591, guid: ec76efaea26d4f647b063c41b0dac9fe, type: 3}
+  icon: {fileID: -4529699076866601591, guid: 5cfe0eb4b3d550347b824a348f250e92, type: 3}
   description: '"Must''ve been caught unarmed."'
   itemType: 0
   side: 1
   isTentacle: 1
   isStretchy: 1
   maxStretchLength: 1
-  damage: 10
-  swingSpeed: 0.4
-  maxSwingSpeed: 1
+  damage: 1
+  swingSpeed: 2
+  maxSwingSpeed: 2
   length: 0
   speed: 0
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}

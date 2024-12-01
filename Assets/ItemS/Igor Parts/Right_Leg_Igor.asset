@@ -13,14 +13,25 @@ MonoBehaviour:
   m_Name: Right_Leg_Igor
   m_EditorClassIdentifier: 
   itemName: Igor's Right Leg
-  icon: {fileID: 3892361729934893960, guid: 0efc2d548b7184940ba8f75c7713b0b2, type: 3}
+  icon: {fileID: 3892361729934893960, guid: 7fe939ac58c39934ab622389f6605900, type: 3}
   description: Feeling Defeated?
   itemType: 1
+  side: 1
   isTentacle: 0
   isStretchy: 0
   maxStretchLength: 0
   damage: 0
   swingSpeed: 0
   maxSwingSpeed: 30
-  length: 2
-  speed: 6
+  length: 5
+  speed: 1
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}
+  torsoSpeed: 1
+  torsoHealth: 4
+  isGun: 0
+  bulletPrefab: {fileID: 0}
+  bulletSpeed: 10
+  fireRate: 0.5

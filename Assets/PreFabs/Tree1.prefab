@@ -9196,7 +9196,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -9306,6 +9306,7 @@ MonoBehaviour:
   maxHealth: 100
   fragmentLifetime: 2
   explosionForcePrefab: {fileID: 7719096408986083237, guid: 1621f20fdb352d74abef3d5363e35050, type: 3}
+  explosionSound: {fileID: 0}
 --- !u!1 &7680930331891434737
 GameObject:
   m_ObjectHideFlags: 0

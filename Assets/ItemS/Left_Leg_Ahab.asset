@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Left_Leg_Ahab
   m_EditorClassIdentifier: 
   itemName: Ahab
-  icon: {fileID: 7084481249794749936, guid: 12418606be45e784584ff2f42f1a5c3b, type: 3}
+  icon: {fileID: 7084481249794749936, guid: ce91fdbfceeb34e4a95b1676aadc029c, type: 3}
   description: '"Ignorance is the parent of fear."'
   itemType: 1
   side: 0
@@ -23,5 +23,8 @@ MonoBehaviour:
   damage: 0
   swingSpeed: 0
   maxSwingSpeed: 30
-  length: 1
-  speed: 3
+  length: 3
+  speed: 1
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10

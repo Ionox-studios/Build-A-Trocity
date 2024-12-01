@@ -25,7 +25,9 @@ public class ArmControllerSimple : MonoBehaviour
     private bool isSwinging = false;
     private bool isKeyHeld = false; // Tracks if the swing key is held
         public LimbVisuals limbVisuals;  // Add this reference
+            public Transform footPoint; // Reference to the foot/end of the leg
 
+    public bool isShooter = false;
     private Transform shoulderReference;
     private Quaternion initialLocalRotation;
 
@@ -185,17 +187,23 @@ public class ArmControllerSimple : MonoBehaviour
         // Configure stretchy behavior
     }
     // Set other properties
-        Debug.Log($"Input swing speed: {armConfig.swingSpeed}");
+
 
     swingSpeed = armConfig.swingSpeed*arbitrarySpeedBoost;
     maxSwingSpeed = armConfig.maxSwingSpeed*arbitrarySpeedBoost;
-        Debug.Log($"Final swing speed: {swingSpeed}");
+
 
         if (limbVisuals != null)
     {
         limbVisuals.itemSO = armConfig;
         limbVisuals.UpdateSprite();
     }
+            if (armConfig.isGun)
+        {
+            LimbShooter shooter = gameObject.AddComponent<LimbShooter>();
+            shooter.Configure(armConfig, footPoint);
+            isShooter = true;
+        }
 }
 
 
@@ -204,7 +212,7 @@ public class ArmControllerSimple : MonoBehaviour
         if (showDebugGizmos && armPivot != null)
         {
             Gizmos.color = gizmoColor;
-            Gizmos.DrawWireSphere(armPivot.position, 0.1f);
+            Gizmos.DrawWireSphere(armPivot.position, 0.2f); //was 0.1f
             Gizmos.DrawLine(armPivot.position, armPivot.position + Vector3.up * 0.2f);
         }
     }

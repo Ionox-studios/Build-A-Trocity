@@ -22,6 +22,9 @@ public class HoverPreviewManager : MonoBehaviour
     [Header("Layout Settings")]
     [SerializeField] public Vector2 previewImageSize = new Vector2(200f, 200f);
     [SerializeField] public int descriptionFontSize = 14;
+    [Header("Sound Settings")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hoverSound;
     
     public static HoverPreviewManager Instance { get; private set; }
 
@@ -29,6 +32,13 @@ public class HoverPreviewManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+                        // Add AudioSource if it doesn't exist
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+                audioSource.volume = 0.1f;
+                audioSource.playOnAwake = false;
+            }
         else
             Destroy(gameObject);
     }
@@ -58,5 +68,12 @@ public class HoverPreviewManager : MonoBehaviour
     public void HideDescription()
     {
         descriptionPanel.SetActive(false);
+    }
+    public void PlayHoverSound()
+    {
+        if (audioSource != null && hoverSound != null)
+        {
+            audioSource.PlayOneShot(hoverSound);
+        }
     }
 }

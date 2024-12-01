@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Right_Leg_Basic
   m_EditorClassIdentifier: 
   itemName: Stolen Right Leg
-  icon: {fileID: 8641074541363907330, guid: 8e7962e91ccd9284483bfb63aab24cc7, type: 3}
+  icon: {fileID: -6314496821589249272, guid: 3cdfdf09d47f10141a0d03e48ae4e9c8, type: 3}
   description: '"We got off on the wrong foot, didn''t we?"'
   itemType: 1
   side: 1
@@ -24,4 +24,7 @@ MonoBehaviour:
   swingSpeed: 0
   maxSwingSpeed: 30
   length: 2
-  speed: 6
+  speed: 2
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10

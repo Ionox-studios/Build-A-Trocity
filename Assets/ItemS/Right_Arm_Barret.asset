@@ -13,15 +13,25 @@ MonoBehaviour:
   m_Name: Right_Arm_Barret
   m_EditorClassIdentifier: 
   itemName: Barret
-  icon: {fileID: -5492720644465660621, guid: 4ee74637d5afe024c8349d5a4d87fe7a, type: 3}
-  description: '"@#*&!"'
+  icon: {fileID: -5492720644465660621, guid: 0b9c87ed86667c44abfad7fcdc37c752, type: 3}
+  description: '"@#*&!" [press Space to shoot projectiles]'
   itemType: 0
   side: 1
   isTentacle: 1
   isStretchy: 1
   maxStretchLength: 1
-  damage: 10
-  swingSpeed: 0.4
+  damage: 2
+  swingSpeed: 1
   maxSwingSpeed: 1
   length: 0
   speed: 0
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}
+  torsoSpeed: 1
+  torsoHealth: 4
+  isGun: 1
+  bulletPrefab: {fileID: 7288492638432127779, guid: a2c339a05648e9b4c8bb02e1b927f627, type: 3}
+  bulletSpeed: 20
+  fireRate: 0.5

@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
     private static AudioManager instance;
     public static AudioManager Instance { get { return instance; } }
     
-    public int maxSimultaneousSounds = 5;
+    public int maxSimultaneousSounds = 10;
     public float globalVolume = 1f;  // Global volume multiplier
     private Queue<AudioSource> audioSourcePool;
 

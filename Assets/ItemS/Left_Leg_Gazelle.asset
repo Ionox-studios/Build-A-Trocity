@@ -13,15 +13,21 @@ MonoBehaviour:
   m_Name: Left_Leg_Gazelle
   m_EditorClassIdentifier: 
   itemName: Gazelle
-  icon: {fileID: 7632419060059511523, guid: 8bdbf6bd7a6b91c4c864a272d2ce2d8b, type: 3}
+  icon: {fileID: 7632419060059511523, guid: 3a51764e36facdc47917851c63b27704, type: 3}
   description: '"Manners maketh man... as they say."'
   itemType: 1
   side: 0
   isTentacle: 1
   isStretchy: 1
   maxStretchLength: 1
-  damage: 0
+  damage: 2
   swingSpeed: 0
   maxSwingSpeed: 30
-  length: 4
+  length: 2
   speed: 3
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}
+  torsoSpeed: 1
+  torsoHealth: 4

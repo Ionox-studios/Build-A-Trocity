@@ -1054,6 +1054,7 @@ GameObject:
   - component: {fileID: 5795606184297403863}
   - component: {fileID: 3907068161079484013}
   - component: {fileID: 2274187242679473481}
+  - component: {fileID: 868410719218169784}
   m_Layer: 0
   m_Name: cultist
   m_TagString: Untagged
@@ -1298,7 +1299,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -1373,6 +1374,8 @@ MonoBehaviour:
   fragmentLifetime: 2
   explosionForcePrefab: {fileID: 7719096408986083237, guid: 1621f20fdb352d74abef3d5363e35050, type: 3}
   explosionSound: {fileID: 8300000, guid: baf0f1980e581864bb01bedd27a03a66, type: 3}
+  hitSound: {fileID: 0}
+  flashDuration: 0.1
 --- !u!114 &5795606184297403863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1390,6 +1393,8 @@ MonoBehaviour:
   explosionForcePrefab: {fileID: 7719096408986083237, guid: 1621f20fdb352d74abef3d5363e35050, type: 3}
   bloodEffectPrefab: {fileID: 0}
   squishSound: {fileID: 0}
+  hitSound: {fileID: 0}
+  flashDuration: 0.1
 --- !u!95 &3907068161079484013
 Animator:
   serializedVersion: 7
@@ -1425,6 +1430,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+--- !u!114 &868410719218169784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916840396840485653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 2
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 0.9339623, g: 0, b: 0, a: 1}
+  m_Intensity: 0.89
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000eb8e505b0180ceaeb10fa73d1d0bd373ef0c9c90
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0, y: -0.00000011920929, z: 0}
+    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0.46
+  m_PointLightOuterRadius: 1.49
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1 &951045825167815139
 GameObject:
   m_ObjectHideFlags: 0
@@ -9292,9 +9349,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b71a4fd83cefe6408e44bf1eb610058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 8
+  baseDetectionRadius: 5
   fleeSpeed: 2
-  fleeTargetDistance: 10
+  basefleeTargetDistance: 10
+  reduceFear: 0
   aiPath: {fileID: 2079231312319128740}
   destinationSetter: {fileID: 7413870736421976692}
   player: {fileID: 0}
@@ -9314,7 +9372,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.198
+  m_Volume: 0.102
   m_Pitch: 1
   Loop: 0
   Mute: 0

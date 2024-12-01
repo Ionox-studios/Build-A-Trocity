@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Left_Leg_Holly
   m_EditorClassIdentifier: 
   itemName: Holly
-  icon: {fileID: 6262622194609020867, guid: 48551cbd9c14bea4eadebeb2ea15f2bb, type: 3}
+  icon: {fileID: 6262622194609020867, guid: 856c8996b989fe0428d8b060c3e62db3, type: 3}
   description: '"Academics like to fantasize, too."'
   itemType: 1
   side: 0
@@ -24,4 +24,7 @@ MonoBehaviour:
   swingSpeed: 0
   maxSwingSpeed: 30
   length: 1
-  speed: 3
+  speed: 4
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10

@@ -80,6 +80,7 @@ public class GameTimer : MonoBehaviour
             {
                 // Game over
                 Debug.Log("Game Over!");
+                OnTimeUp();
             }
         }
     }
@@ -96,8 +97,8 @@ public class GameTimer : MonoBehaviour
         string period = currentHour >= 12 ? "PM" : "AM";
         int displayHour = currentHour % 12;
         if (displayHour == 0) displayHour = 12;
-
-        string timeString = $"{displayHour}:{currentMinute:00}:{currentSecond:00} {period}";
+        string timeString = $"{displayHour}:{currentMinute:00} {period}"; 
+ //       string timeString = $"{displayHour}:{currentMinute:00}:{currentSecond:00} {period}"; 
         if (timerText != null)
         {
             timerText.text = timeString;

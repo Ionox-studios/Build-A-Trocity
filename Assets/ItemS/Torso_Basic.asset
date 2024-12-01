@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Torso_Basic
   m_EditorClassIdentifier: 
   itemName: Stolen Torso
-  icon: {fileID: 4746189719807976399, guid: 13f1329a2a98fe04f91a3e8764759a43, type: 3}
+  icon: {fileID: -784692185757442291, guid: c131d7ee62055784babc986bb00f1eed, type: 3}
   description: '"Can you stomach this?"'
   itemType: 3
   side: 0

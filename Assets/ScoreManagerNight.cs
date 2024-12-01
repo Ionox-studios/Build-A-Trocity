@@ -21,6 +21,8 @@ public class ScoreManagerNight : MonoBehaviour
     [Header("Victory Settings")]
     [SerializeField] private string endSceneName = "IgorGood"; // Scene to load
     [SerializeField] private string badEndSceneName = "IgorGoodButBad"; // Scene to load
+
+    [SerializeField] private string perFectEnding = "IgorPerfect"; // Scene to load
     public GameObject victoryTextObject; // Reference to existing UI text object
     public float delayBeforeSceneChange = 2f; // Delay in seconds
     private int cultistsDefeated = 0;
@@ -80,6 +82,17 @@ public class ScoreManagerNight : MonoBehaviour
         {
             StartCoroutine(HandleVictory());
         }
+            HeadController headController = FindFirstObjectByType<HeadController>();
+    if (headController != null && headController.headItem != null && 
+        headController.headItem.headEffectType == ItemSO.HeadEffectType.Vampire)
+    {
+        HeartTimer heartTimer = FindFirstObjectByType<HeartTimer>();
+        if (heartTimer != null)
+        {
+            Debug.Log("Vampire active, restoring time");
+            heartTimer.RestoreTime(10f);
+        }
+    }
     }
 
     private IEnumerator HandleVictory()
@@ -96,6 +109,10 @@ public class ScoreManagerNight : MonoBehaviour
         if (monsterControllerSimple.isBadEnding)
         {
             SceneManager.LoadScene(badEndSceneName);
+        }
+        else if (monsterControllerSimple.isGreatEnding)
+        {
+            SceneManager.LoadScene(perFectEnding);
         }
         else
         {

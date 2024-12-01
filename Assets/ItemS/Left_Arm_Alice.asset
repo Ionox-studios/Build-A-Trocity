@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: Left_Arm_Alice
   m_EditorClassIdentifier: 
   itemName: Alice
-  icon: {fileID: -565478963015965109, guid: 2bd9e045e5368304e8cb6583985f32ec, type: 3}
+  icon: {fileID: -3852240215053162622, guid: ab72e54e352644442b5ee1ee79dd8582, type: 3}
   description: '"Secret from another time?"'
   itemType: 0
   side: 0
   isTentacle: 0
   isStretchy: 0
   maxStretchLength: 0
-  damage: 10
-  swingSpeed: 0.2
-  maxSwingSpeed: 1
+  damage: 2
+  swingSpeed: 4
+  maxSwingSpeed: 4
   length: 0
   speed: 0
+  headEffectType: 0
+  laserPrefab: {fileID: 0}
+  damageAmount: 10
+  useSound: {fileID: 0}
